@@ -29,7 +29,7 @@ We use Apache Kafka to facilitate real-time data streaming. Historical data is c
 
 # Filtering Data for Real-time Visualization in Grafana
 In Grafana, we use SQL queries to filter and retrieve real-time data from the Kafka topic, ensuring that we display the latest available information. The following SQL query accomplishes this task:
-![Local Image](relative/path/to/image.png)
+![Local Image](StreamStockPrediction/PredictPlot.png)
   ```sql
   SELECT
     a."date_A",
