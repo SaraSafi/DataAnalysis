@@ -27,4 +27,29 @@ We collect daily historical Apple stock price data from Yahoo Finance. This data
 # Real-time Data Streaming
 We use Apache Kafka to facilitate real-time data streaming. Historical data is continuously fed into a Kafka topic. Apache Spark subscribes to this topic, utilizes the pre-trained machine learning models, and predicts real-time stock prices. These predictions are then stored in PostgreSQL for further analysis
 
+# Filtering Data for Real-time Visualization in Grafana
+In Grafana, we use SQL queries to filter and retrieve real-time data from the Kafka topic, ensuring that we display the latest available information. The following SQL query accomplishes this task:
+![Local Image](relative/path/to/image.png)
+  ```sql
+  SELECT
+    a."date_A",
+    a."open_A",
+    a."prediction"
+  FROM
+    apple1 a
+  JOIN
+    (SELECT
+      "date_A",
+      MAX("kafka_time") AS max_kafka_time
+     FROM
+      apple1
+     GROUP BY
+      "date_A"
+    ) b
+  ON
+    a."date_A" = b."date_A" AND a."kafka_time" = b.max_kafka_time
+  LIMIT
+    50;
+
+
 
